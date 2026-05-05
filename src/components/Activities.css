@@ -1,0 +1,65 @@
+.activities {
+  background-color: var(--color-white);
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.activities-intro {
+  color: var(--color-text-muted);
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto 3rem auto;
+}
+
+.activities-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.activity-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  padding: 2rem;
+  background-color: var(--color-bg);
+  border-radius: 16px;
+  transition: var(--transition);
+  border: 1px solid transparent;
+}
+
+.activity-card:hover {
+  background-color: var(--color-white);
+  border-color: rgba(88, 151, 209, 0.3);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-5px);
+}
+
+.activity-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.activity-content h3 {
+  color: var(--color-primary);
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.activity-content p {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .activities-grid {
+    grid-template-columns: 1fr;
+  }
+}
