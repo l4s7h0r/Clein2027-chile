@@ -1,0 +1,6 @@
+# Google Workspace / Gmail
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=465
+SMTP_USER=contacto@tuempresa.cl
+SMTP_PASS=changeme
+CONTACT_TO=contacto@tuempresa.cl
