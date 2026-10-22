@@ -1,92 +1,143 @@
 import React, { useState } from 'react';
 import './Agenda.css';
 
+type Kind = 'academico' | 'networking' | 'social' | 'pausa';
+
 interface Block {
   time: string;
   title: string;
-  detail: string;
+  kind: Kind;
+  parallel?: string[];
 }
 
 interface Day {
   key: string;
   short: string;
   date: string;
-  theme: string;
+  theme?: string;
   blocks: Block[];
 }
 
-// Programa tentativo, construido con los ejes y actividades de la propuesta.
-const days: Day[] = [
+type Mode = 'presencial' | 'online';
+
+const kindLabel: Record<Kind, string> = {
+  academico: 'Académico',
+  networking: 'Networking',
+  social: 'Social',
+  pausa: 'Pausa',
+};
+
+// Mismo programa de los tres días temáticos (martes a jueves)
+const themedDay = (social: string): Block[] => [
+  { time: '9:00 – 9:45', title: 'Ponencias estudiantiles', kind: 'academico' },
+  { time: '9:45 – 10:45', title: 'Paneles y ponencia magistral', kind: 'academico' },
+  { time: '10:45 – 11:00', title: 'Coffee break', kind: 'pausa' },
+  { time: '11:00 – 13:00', title: 'Talleres', kind: 'academico', parallel: ['Taller 1', 'Taller 2', 'Taller 3'] },
+  { time: '13:00 – 14:00', title: 'Almuerzo', kind: 'pausa' },
+  { time: '14:00 – 15:00', title: 'Tech Talks', kind: 'academico' },
+  { time: '15:00 – 15:45', title: 'Voces que inspiran y foro debate profesional', kind: 'academico' },
+  { time: '15:45 – 16:00', title: 'Coffee break', kind: 'pausa' },
+  { time: '16:00 – 16:30', title: 'Olimpiadas académicas', kind: 'academico' },
+  {
+    time: '16:30 – 18:00',
+    title: 'Actividades en paralelo',
+    kind: 'networking',
+    parallel: ['Global Experience', 'Feria de innovación tecnológica', 'Mesa redonda'],
+  },
+  { time: '18:00 – 19:00', title: 'Concurso de pósteres', kind: 'academico' },
+  { time: '21:00 – 23:00', title: social, kind: 'social' },
+];
+
+// Horarios leídos de los cronogramas del equipo; son referenciales hasta confirmar el programa final.
+const presencial: Day[] = [
   {
     key: 'dom',
     short: 'Dom 24',
     date: 'Domingo 24 de octubre',
-    theme: 'Bienvenida',
     blocks: [
-      { time: 'Todo el día', title: 'Acreditación y recepción', detail: 'Entrega de credencial QR y kit de bienvenida en el hotel sede.' },
-      { time: 'Tarde', title: 'Ceremonia de inauguración', detail: 'Autoridades, comité organizador y presentación de las delegaciones.' },
-      { time: 'Noche', title: 'Cóctel de bienvenida', detail: 'Primer espacio de networking entre delegaciones.' },
+      { time: '10:45 – 15:45', title: 'Acreditación y feria', kind: 'networking' },
+      { time: '19:00 – 22:00', title: 'Pre CLEIN', kind: 'social' },
     ],
   },
   {
     key: 'lun',
     short: 'Lun 25',
     date: 'Lunes 25 de octubre',
-    theme: 'Green Shift',
     blocks: [
-      { time: 'Mañana', title: 'Conferencia magistral y panel de energía', detail: 'Transición energética, economía circular y descarbonización.' },
-      { time: 'Mañana', title: 'Talleres certificados', detail: 'Formación práctica con herramientas de vanguardia.' },
-      { time: 'Tarde', title: 'Visita técnica del eje', detail: 'Recorrido por una operación real de energía en Santiago.' },
+      { time: '9:00 – 13:00', title: 'CLEIN Games', kind: 'networking' },
+      { time: '14:00 – 16:00', title: 'CLEIN Conecta', kind: 'networking' },
+      { time: '20:00 – 21:00', title: 'Cóctel de apertura', kind: 'social' },
+      { time: '21:00 – 23:00', title: 'Future Party', kind: 'social' },
     ],
   },
-  {
-    key: 'mar',
-    short: 'Mar 26',
-    date: 'Martes 26 de octubre',
-    theme: 'Smart Mining',
-    blocks: [
-      { time: 'Mañana', title: 'Conferencia magistral y panel de minería', detail: 'Automatización, cobre y litio, teleoperación y gemelos digitales.' },
-      { time: 'Mañana', title: 'Tech Talks', detail: 'Charlas cortas sobre innovación y tendencias.' },
-      { time: 'Tarde', title: 'Visita técnica del eje', detail: 'Centro de operaciones remotas de minería.' },
-    ],
-  },
-  {
-    key: 'mie',
-    short: 'Mié 27',
-    date: 'Miércoles 27 de octubre',
-    theme: 'Intelligent Decisions',
-    blocks: [
-      { time: 'Mañana', title: 'Conferencia magistral y panel de datos e IA', detail: 'Analítica, modelos predictivos y decisiones basadas en datos.' },
-      { time: 'Mañana', title: 'Paneles empresariales', detail: 'Líderes de la industria chilena y latinoamericana.' },
-      { time: 'Tarde', title: 'Visita técnica del eje', detail: 'Logística y operaciones con analítica a gran escala.' },
-    ],
-  },
-  {
-    key: 'jue',
-    short: 'Jue 28',
-    date: 'Jueves 28 de octubre',
-    theme: 'Competencia e innovación',
-    blocks: [
-      { time: 'Mañana', title: 'Ponencias estudiantiles y e-posters', detail: 'Presentación de las investigaciones finalistas.' },
-      { time: 'Tarde', title: 'Desafío de innovación y olimpiadas académicas', detail: 'Retos reales de empresas y competencia entre delegaciones.' },
-      { time: 'Tarde', title: 'Feria de posgrados e innovación', detail: 'Stands de universidades y empresas.' },
-    ],
-  },
+  { key: 'mar', short: 'Mar 26', date: 'Martes 26 de octubre', theme: 'Green Shift', blocks: themedDay('Peña folclórica') },
+  { key: 'mie', short: 'Mié 27', date: 'Miércoles 27 de octubre', theme: 'Intelligent Decisions', blocks: themedDay('Fiesta años 20s') },
+  { key: 'jue', short: 'Jue 28', date: 'Jueves 28 de octubre', theme: 'Smart Mining', blocks: themedDay('Festival de las Naciones') },
   {
     key: 'vie',
     short: 'Vie 29',
     date: 'Viernes 29 de octubre',
-    theme: 'Cierre',
     blocks: [
-      { time: 'Mañana', title: 'Conferencia de cierre', detail: 'Conclusiones del congreso y mirada a la siguiente sede.' },
-      { time: 'Tarde', title: 'Premiación', detail: 'Reconocimiento a ponencias, e-posters, olimpiadas y desafío de innovación.' },
-      { time: 'Noche', title: 'Gala de clausura', detail: 'Cierre social y cultural del CLEIN Chile 2027.' },
+      { time: '9:00 – 13:00', title: 'Visitas técnicas', kind: 'networking' },
+      { time: '14:00 – 16:30', title: 'Recorrido turístico', kind: 'networking' },
+      { time: '20:00 – 21:00', title: 'Cena de clausura', kind: 'social' },
+      { time: '21:00 – 23:00', title: 'Gala bajo las estrellas', kind: 'social' },
     ],
   },
 ];
 
+const onlineDay = (): Block[] => [
+  { time: '9:00 – 9:45', title: 'Ponencias estudiantiles', kind: 'academico' },
+  { time: '9:45 – 10:45', title: 'Paneles (experiencias personales)', kind: 'academico' },
+  { time: '10:45 – 11:00', title: 'Receso', kind: 'pausa' },
+  { time: '11:00 – 13:00', title: 'Workshops', kind: 'academico', parallel: ['Workshop 1', 'Workshop 2', 'Workshop 3'] },
+  { time: '13:00 – 14:00', title: 'Almuerzo', kind: 'pausa' },
+  { time: '14:00 – 15:00', title: 'Workshops', kind: 'academico', parallel: ['Workshop 1', 'Workshop 2', 'Workshop 3'] },
+  { time: '15:00 – 15:45', title: 'Foro debate profesional', kind: 'academico' },
+  { time: '15:45 – 16:00', title: 'Receso', kind: 'pausa' },
+  { time: '16:00 – 16:30', title: 'Olimpiadas académicas', kind: 'academico' },
+];
+
+const online: Day[] = [
+  {
+    key: 'dom',
+    short: 'Dom 24',
+    date: 'Domingo 24 de octubre',
+    blocks: [{ time: 'Todo el día', title: 'Acreditación online', kind: 'networking' }],
+  },
+  {
+    key: 'lun',
+    short: 'Lun 25',
+    date: 'Lunes 25 de octubre',
+    blocks: [
+      { time: '11:00 – 14:00', title: 'Proyección social', kind: 'networking' },
+      { time: '15:00 – 16:00', title: 'Inauguración online', kind: 'academico' },
+      { time: '20:00 – 21:00', title: 'Cóctel de apertura', kind: 'social' },
+    ],
+  },
+  { key: 'mar', short: 'Mar 26', date: 'Martes 26 de octubre', theme: 'Productividad 4.0', blocks: onlineDay() },
+  { key: 'mie', short: 'Mié 27', date: 'Miércoles 27 de octubre', theme: 'Sostenibilidad', blocks: onlineDay() },
+  { key: 'jue', short: 'Jue 28', date: 'Jueves 28 de octubre', theme: 'Competitividad', blocks: onlineDay() },
+  {
+    key: 'vie',
+    short: 'Vie 29',
+    date: 'Viernes 29 de octubre',
+    blocks: [
+      { time: '10:45 – 11:00', title: 'Charla', kind: 'academico' },
+      { time: '20:00 – 21:00', title: 'Clausura en streaming', kind: 'social' },
+    ],
+  },
+];
+
+const programs: Record<Mode, { label: string; days: Day[] }> = {
+  presencial: { label: 'Presencial', days: presencial },
+  online: { label: 'Online', days: online },
+};
+
 const Agenda: React.FC = () => {
-  const [active, setActive] = useState(days[0].key);
+  const [mode, setMode] = useState<Mode>('presencial');
+  const [active, setActive] = useState('dom');
+  const days = programs[mode].days;
   const day = days.find((d) => d.key === active) ?? days[0];
 
   return (
@@ -96,9 +147,22 @@ const Agenda: React.FC = () => {
           <h2 className="section-title">Seis días, un programa</h2>
           <div className="title-underline mx-auto"></div>
           <p className="agenda-intro">
-            Un día por eje temático, visitas técnicas por la tarde y dos jornadas de competencia e innovación.
-            Programa tentativo, sujeto a ajustes.
+            Martes, miércoles y jueves cada día se dedica a un pilar temático. El viernes cierra con visitas técnicas y
+            recorrido turístico. Horarios referenciales, sujetos a ajustes.
           </p>
+        </div>
+
+        <div className="agenda-modes" role="group" aria-label="Modalidad">
+          {(Object.keys(programs) as Mode[]).map((m) => (
+            <button
+              key={m}
+              className={`agenda-mode ${m === mode ? 'active' : ''}`}
+              aria-pressed={m === mode}
+              onClick={() => setMode(m)}
+            >
+              {programs[m].label}
+            </button>
+          ))}
         </div>
 
         <div className="agenda-tabs" role="tablist" aria-label="Días del congreso">
@@ -107,9 +171,9 @@ const Agenda: React.FC = () => {
               key={d.key}
               role="tab"
               id={`tab-${d.key}`}
-              aria-selected={d.key === active}
+              aria-selected={d.key === day.key}
               aria-controls="agenda-panel"
-              className={`agenda-tab ${d.key === active ? 'active' : ''}`}
+              className={`agenda-tab ${d.key === day.key ? 'active' : ''}`}
               onClick={() => setActive(d.key)}
             >
               {d.short}
@@ -120,15 +184,23 @@ const Agenda: React.FC = () => {
         <div className="agenda-panel" id="agenda-panel" role="tabpanel" aria-labelledby={`tab-${day.key}`}>
           <div className="agenda-day-head">
             <h3>{day.date}</h3>
-            <span className="agenda-theme">{day.theme}</span>
+            {day.theme && <span className="agenda-theme">{day.theme}</span>}
           </div>
           <ol className="agenda-blocks">
             {day.blocks.map((b) => (
-              <li key={b.title} className="agenda-block">
+              <li key={`${b.time}-${b.title}`} className={`agenda-block kind-${b.kind}`}>
                 <span className="agenda-time">{b.time}</span>
                 <div>
-                  <h4>{b.title}</h4>
-                  <p>{b.detail}</p>
+                  <h4>
+                    {b.title} <span className="agenda-kind">{kindLabel[b.kind]}</span>
+                  </h4>
+                  {b.parallel && (
+                    <ul className="agenda-parallel">
+                      {b.parallel.map((p) => (
+                        <li key={p}>{p}</li>
+                      ))}
+                    </ul>
+                  )}
                 </div>
               </li>
             ))}
