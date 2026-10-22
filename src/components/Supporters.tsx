@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Supporters.css';
 
 const universities = [
@@ -9,12 +9,28 @@ const universities = [
   { name: 'Universidad Andrés Bello', src: '/universidades/unab.png' },
 ];
 
+// Los logos van en public/empresas/. Mientras no exista el archivo se muestra el nombre.
 const companies = [
-  { name: 'Enel', area: 'Energía' },
-  { name: 'Centro Remoto Minero', area: 'Minería' },
-  { name: 'Mercado Libre / Falabella', area: 'Logística y retail' },
-  { name: 'Coca-Cola', area: 'Manufactura' },
+  { name: 'Enel', area: 'Energía', logo: '/empresas/enel.png' },
+  { name: 'Centro Remoto Minero', area: 'Minería', logo: '/empresas/centro-remoto-minero.png' },
+  { name: 'Mercado Libre', area: 'Logística y retail', logo: '/empresas/mercado-libre.png' },
+  { name: 'Falabella', area: 'Logística y retail', logo: '/empresas/falabella.png' },
+  { name: 'Coca-Cola', area: 'Manufactura', logo: '/empresas/coca-cola.png' },
 ];
+
+const CompanyLogo: React.FC<{ name: string; logo: string }> = ({ name, logo }) => {
+  const [failed, setFailed] = useState(false);
+  if (failed) return <span className="company-name">{name}</span>;
+  return (
+    <img
+      className="company-logo"
+      src={logo}
+      alt={name}
+      loading="lazy"
+      onError={() => setFailed(true)}
+    />
+  );
+};
 
 const Supporters: React.FC = () => {
   return (
@@ -51,7 +67,9 @@ const Supporters: React.FC = () => {
         <ul className="companies-grid">
           {companies.map((c) => (
             <li key={c.name} className="company-card">
-              <span className="company-name">{c.name}</span>
+              <div className="company-logo-box">
+                <CompanyLogo name={c.name} logo={c.logo} />
+              </div>
               <span className="company-area">{c.area}</span>
               <span className="company-badge">En conversaciones</span>
             </li>
