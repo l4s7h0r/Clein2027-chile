@@ -1,4 +1,9 @@
 
+import Countdown from './components/Countdown';
+import Agenda from './components/Agenda';
+import TechVisits from './components/TechVisits';
+import Participate from './components/Participate';
+import Faq from './components/Faq';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -15,10 +20,15 @@ function App() {
       <Header />
       <main>
         <Hero />
+        <Countdown />
         <About />
-        <Supporters />
         <Pillars />
         <Activities />
+        <Agenda />
+        <TechVisits />
+        <Supporters />
+        <Participate />
+        <Faq />
         <Contact />
       </main>
       <Footer />

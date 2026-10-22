@@ -1,0 +1,76 @@
+.participate {
+  background-color: var(--color-bg);
+}
+
+.participate-intro {
+  color: var(--color-text-muted);
+  margin-bottom: 2.5rem;
+}
+
+.participate-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.participate-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 2rem;
+  background: var(--color-white);
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+}
+
+.participate-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.participate-icon {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  color: var(--color-white);
+  background: var(--color-primary);
+}
+
+.participate-card h3 {
+  font-size: 1.35rem;
+  color: var(--color-primary);
+}
+
+.participate-lead {
+  color: var(--color-text-muted);
+}
+
+.participate-card ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  flex: 1;
+  margin-bottom: 0.5rem;
+}
+
+.participate-card li {
+  position: relative;
+  padding-left: 1.4rem;
+  font-size: 0.95rem;
+}
+
+.participate-card li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.55rem;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-secondary);
+}

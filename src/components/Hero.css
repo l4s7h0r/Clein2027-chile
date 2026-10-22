@@ -99,3 +99,13 @@
   background: var(--color-white);
   border-radius: 16px;
 }
+
+@media (max-width: 480px) {
+  .hero-text {
+    padding: 1.5rem;
+  }
+
+  .hero-title {
+    font-size: 2.25rem;
+  }
+}
