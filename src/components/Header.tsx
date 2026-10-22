@@ -28,8 +28,7 @@ const Header: React.FC = () => {
     <header className={`header ${scrolled ? 'scrolled' : ''}`}>
       <div className="container header-container">
         <div className="logo">
-          <img src="/logo.png" alt="CLEIN Santiago 2027" className="logo-img" />
-          <span className="logo-text">CLEIN <span className="logo-accent">Santiago 2027</span></span>
+          <img src="/logo-claro.png" alt="CLEIN Chile 2027" className="logo-img" />
         </div>
         
         <nav className="nav-desktop">

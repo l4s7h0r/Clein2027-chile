@@ -35,10 +35,6 @@
   animation: carousel-scroll 30s linear infinite;
 }
 
-.carousel:hover .carousel-track {
-  animation-play-state: paused;
-}
-
 /* El recorrido es la mitad del track porque la lista está duplicada */
 @keyframes carousel-scroll {
   to {

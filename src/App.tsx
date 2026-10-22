@@ -1,5 +1,4 @@
 
-import Countdown from './components/Countdown';
 import Agenda from './components/Agenda';
 import TechVisits from './components/TechVisits';
 import Participate from './components/Participate';
@@ -20,7 +19,6 @@ function App() {
       <Header />
       <main>
         <Hero />
-        <Countdown />
         <About />
         <Pillars />
         <Activities />
