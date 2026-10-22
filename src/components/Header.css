@@ -28,7 +28,7 @@
 }
 
 .logo-img {
-  height: 44px;
+  height: 56px;
   width: auto;
   display: block;
 }
@@ -78,8 +78,45 @@
   width: 100%;
 }
 
-@media (max-width: 768px) {
+.nav-toggle {
+  display: none;
+  color: var(--color-white);
+}
+
+.nav-mobile {
+  display: none;
+}
+
+@media (max-width: 960px) {
   .nav-desktop {
     display: none;
+  }
+
+  .nav-toggle {
+    display: block;
+  }
+
+  .header:has(.nav-mobile) {
+    background-color: rgba(29, 47, 90, 0.98);
+  }
+
+  .nav-mobile {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.25rem;
+    padding: 1.5rem;
+  }
+
+  .nav-mobile ul {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .nav-mobile li a {
+    color: var(--color-white);
+    font-weight: 500;
+    font-size: 1.1rem;
   }
 }

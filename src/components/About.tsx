@@ -50,15 +50,15 @@ const About: React.FC = () => {
                   <span className="stat-label">Países</span>
                 </div>
                 <div className="stat-item">
-                  <span className="stat-number">+600</span>
+                  <span className="stat-number">500</span>
                   <span className="stat-label">Asistentes</span>
                 </div>
                 <div className="stat-item">
-                  <span className="stat-number">5</span>
+                  <span className="stat-number">6</span>
                   <span className="stat-label">Días de Inmersión</span>
                 </div>
                 <div className="stat-item">
-                  <span className="stat-number">+30</span>
+                  <span className="stat-number">6 a 8</span>
                   <span className="stat-label">Conferencistas</span>
                 </div>
               </div>

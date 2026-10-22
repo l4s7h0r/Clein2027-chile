@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Contact.css';
 import { Mail, Loader2, CheckCircle2, XCircle } from 'lucide-react';
 
@@ -24,6 +24,16 @@ const initialForm: FormState = {
 const Contact: React.FC = () => {
   const [form, setForm] = useState<FormState>(initialForm);
   const [status, setStatus] = useState<Status>('idle');
+
+  // Los botones de "Participa" preseleccionan el perfil en el formulario
+  useEffect(() => {
+    const onTipo = (e: Event) => {
+      const tipo = (e as CustomEvent<Tipo>).detail;
+      setForm((prev) => ({ ...prev, tipo }));
+    };
+    window.addEventListener('clein:tipo', onTipo);
+    return () => window.removeEventListener('clein:tipo', onTipo);
+  }, []);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>

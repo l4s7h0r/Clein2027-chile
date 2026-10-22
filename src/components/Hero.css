@@ -42,6 +42,30 @@
   padding-top: 80px; /* Space for header */
 }
 
+.hero-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3rem;
+}
+
+.hero-brand {
+  display: none;
+  width: min(420px, 32vw);
+  height: auto;
+  filter: drop-shadow(0 8px 30px rgba(0, 0, 0, 0.45));
+}
+
+@media (min-width: 1100px) {
+  .hero-brand {
+    display: block;
+  }
+
+  .hero-text .hero-logo {
+    display: none;
+  }
+}
+
 .hero-text {
   max-width: 650px;
   padding: 3rem;
@@ -87,5 +111,23 @@
   
   .hero-title {
     font-size: 3rem;
+  }
+}
+
+.hero-logo {
+  display: block;
+  width: 190px;
+  height: auto;
+  margin-bottom: 1.25rem;
+  filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.35));
+}
+
+@media (max-width: 480px) {
+  .hero-text {
+    padding: 1.5rem;
+  }
+
+  .hero-title {
+    font-size: 2.25rem;
   }
 }
