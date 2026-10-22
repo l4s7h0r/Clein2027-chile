@@ -27,6 +27,7 @@ const Header: React.FC = () => {
             <li><a href="#about">El Evento</a></li>
             <li><a href="#pillars">Pilares</a></li>
             <li><a href="#activities">Actividades</a></li>
+            <li><a href="#supporters">Respaldo</a></li>
           </ul>
           <a href="#contact" className="btn btn-accent nav-cta">Apoya la propuesta</a>
         </nav>

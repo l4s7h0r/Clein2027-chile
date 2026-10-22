@@ -16,6 +16,7 @@ const Footer: React.FC = () => {
             <a href="#about">El Evento</a>
             <a href="#pillars">Pilares</a>
             <a href="#activities">Actividades</a>
+            <a href="#supporters">Respaldo</a>
           </div>
         </div>
         

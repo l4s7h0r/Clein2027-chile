@@ -89,3 +89,13 @@
     font-size: 3rem;
   }
 }
+
+.hero-logo {
+  display: block;
+  width: 140px;
+  height: auto;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  background: var(--color-white);
+  border-radius: 16px;
+}

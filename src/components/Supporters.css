@@ -1,0 +1,51 @@
+.supporters {
+  background-color: var(--color-white);
+}
+
+.supporters-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.supporters-header .title-underline {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.supporters-text {
+  color: var(--color-text-muted);
+  margin-top: 1rem;
+}
+
+.supporters-grid {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.supporter-card {
+  width: 220px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 1.25rem;
+  background: var(--color-white);
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+}
+
+.supporter-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-3px);
+}
+
+.supporter-card img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}

@@ -13,6 +13,7 @@ const Hero: React.FC = () => {
       
       <div className="container hero-content">
         <div className="hero-text glass animate-fade-up">
+          <img src="/logo.png" alt="CLEIN Santiago 2027" className="hero-logo" />
           <p className="hero-subtitle">Postulación Oficial</p>
           <h1 className="hero-title">
             CLEIN <br />
