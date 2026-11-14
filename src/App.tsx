@@ -1,4 +1,3 @@
-
 import Agenda from './components/Agenda';
 import TechVisits from './components/TechVisits';
 import Participate from './components/Participate';
@@ -11,26 +10,42 @@ import Pillars from './components/Pillars';
 import Activities from './components/Activities';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import { AuthProvider } from './core/auth/AuthContext';
+import { Router, Routes } from './core/router';
+import { construirRutas } from './shell/registry';
 import './App.css';
+
+/** Portada: cada sección es un componente independiente en src/components. */
+function Inicio() {
+  return (
+    <main>
+      <Hero />
+      <About />
+      <Pillars />
+      <Activities />
+      <Agenda />
+      <TechVisits />
+      <Supporters />
+      <Participate />
+      <Faq />
+      <Contact />
+    </main>
+  );
+}
+
+const rutas = { '/': <Inicio />, ...construirRutas() };
 
 function App() {
   return (
-    <div className="app">
-      <Header />
-      <main>
-        <Hero />
-        <About />
-        <Pillars />
-        <Activities />
-        <Agenda />
-        <TechVisits />
-        <Supporters />
-        <Participate />
-        <Faq />
-        <Contact />
-      </main>
-      <Footer />
-    </div>
+    <Router>
+      <AuthProvider>
+        <div className="app">
+          <Header />
+          <Routes rutas={rutas} fallback={<Inicio />} />
+          <Footer />
+        </div>
+      </AuthProvider>
+    </Router>
   );
 }
 

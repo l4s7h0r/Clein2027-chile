@@ -15,21 +15,21 @@ const visits: Visit[] = [
   {
     pillar: 'Green Shift',
     company: 'Enel',
-    logos: [{ src: '/empresas/enel.png', alt: 'Enel' }],
+    logos: [{ src: '/empresas/enel.svg', alt: 'Enel' }],
     see: 'Generación limpia, matriz renovable y gestión de operaciones a gran escala.',
   },
   {
     pillar: 'Smart Mining',
     company: 'Centro Remoto Minero',
-    logos: [{ src: '/empresas/centro-remoto-minero.png', alt: 'Centro Remoto Minero' }],
+    logos: [{ src: '/empresas/centro-remoto-minero.jpg', alt: 'Centro Remoto Minero' }],
     see: 'Teleoperación de maquinaria, gemelos digitales, analítica predictiva e IIoT.',
   },
   {
     pillar: 'Intelligent Decisions',
     company: 'Mercado Libre o Falabella',
     logos: [
-      { src: '/empresas/mercado-libre.png', alt: 'Mercado Libre' },
-      { src: '/empresas/falabella.png', alt: 'Falabella' },
+      { src: '/empresas/mercado-libre.svg', alt: 'Mercado Libre' },
+      { src: '/empresas/falabella.svg', alt: 'Falabella' },
     ],
     see: 'Logística robotizada, ruteo con algoritmos y gestión de inventarios.',
   },
@@ -46,7 +46,7 @@ const filters: Pillar[] = ['Todos', 'Green Shift', 'Smart Mining', 'Intelligent 
 const Logo: React.FC<{ src: string; alt: string }> = ({ src, alt }) => {
   const [failed, setFailed] = useState(false);
   if (failed) return null;
-  return <img className="visit-logo" src={src} alt={alt} loading="lazy" onError={() => setFailed(true)} />;
+  return <img className={`visit-logo${src.endsWith(".jpg") ? " visit-logo--photo" : ""}`} src={src} alt={alt} loading="lazy" onError={() => setFailed(true)} />;
 };
 
 const TechVisits: React.FC = () => {

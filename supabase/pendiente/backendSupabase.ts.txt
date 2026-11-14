@@ -1,0 +1,67 @@
+// Etapa de base de datos: copiar a src/cuenta/backendSupabase.ts cuando exista el proyecto Supabase,
+// instalar @supabase/supabase-js y usarlo desde obtenerBackend() en backend.ts.
+import type { SupabaseClient } from '@supabase/supabase-js';
+import type { Backend, Perfil, Usuario } from './backend';
+
+const traducir = (msg: string): string => {
+  const m = msg.toLowerCase();
+  if (m.includes('invalid login')) return 'Correo o contraseña incorrectos.';
+  if (m.includes('already registered')) return 'Ese correo ya tiene una cuenta.';
+  if (m.includes('email not confirmed')) return 'Falta confirmar tu correo. Revisa tu bandeja de entrada.';
+  if (m.includes('password should be')) return 'La contraseña debe tener al menos 8 caracteres.';
+  if (m.includes('rate limit')) return 'Demasiados intentos. Espera unos minutos.';
+  return 'No se pudo completar la acción. Inténtalo de nuevo.';
+};
+const COLUMNAS = 'display_name,country_code,university_name,career,headline,bio,linkedin_url,portfolio_url,cv_url,is_public';
+
+/* ───────── Supabase (se carga solo si hay claves configuradas) ───────── */
+
+export function crearSupabase(sb: SupabaseClient): Backend {
+  const aUsuario = (u: { id: string; email?: string } | null | undefined): Usuario | null =>
+    u ? { id: u.id, email: u.email ?? '' } : null;
+  return {
+    demo: false,
+    async sesion() { const { data } = await sb.auth.getSession(); return aUsuario(data.session?.user); },
+    alCambiar(cb) {
+      const { data } = sb.auth.onAuthStateChange((_e, s) => cb(aUsuario(s?.user)));
+      return () => data.subscription.unsubscribe();
+    },
+    async entrar(email, password) {
+      const { error } = await sb.auth.signInWithPassword({ email, password });
+      return error ? traducir(error.message) : null;
+    },
+    async registrar(email, password, d) {
+      const { data, error } = await sb.auth.signUp({
+        email, password,
+        options: {
+          emailRedirectTo: `${window.location.origin}/perfil`,
+          data: { display_name: `${d.nombre.trim()} ${d.apellido.trim()}`.trim(), country_code: d.pais },
+        },
+      });
+      if (error) return { error: traducir(error.message), requiereConfirmar: false };
+      return { error: null, requiereConfirmar: !data.session };
+    },
+    async proveedor(p) {
+      const { error } = await sb.auth.signInWithOAuth({ provider: p, options: { redirectTo: `${window.location.origin}/perfil` } });
+      return error ? traducir(error.message) : null;
+    },
+    async recuperar(email) {
+      const { error } = await sb.auth.resetPasswordForEmail(email, { redirectTo: `${window.location.origin}/cuenta/nueva-clave` });
+      return error ? traducir(error.message) : null;
+    },
+    async cambiarClave(password) {
+      const { error } = await sb.auth.updateUser({ password });
+      return error ? traducir(error.message) : null;
+    },
+    async salir() { await sb.auth.signOut(); },
+    async cargarPerfil(id) {
+      const { data, error } = await sb.from('profiles').select(COLUMNAS).eq('id', id).maybeSingle();
+      return error || !data ? null : (data as Perfil);
+    },
+    async guardarPerfil(id, p) {
+      const { error } = await sb.from('profiles').update({ ...p, updated_at: new Date().toISOString() }).eq('id', id);
+      return error ? 'No se pudo guardar. Revisa los datos.' : null;
+    },
+  };
+}
+
