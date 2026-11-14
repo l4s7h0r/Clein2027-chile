@@ -1,0 +1,101 @@
+.cuenta-pagina { padding: 8rem 1.25rem 4rem; background: var(--color-bg); min-height: 70vh; }
+.cuenta-card { max-width: 440px; margin: 0 auto; background: var(--color-white); border-radius: 20px; padding: 2.25rem 2rem; box-shadow: var(--shadow-lg); }
+.cuenta-card.cuenta-ancha { max-width: 680px; }
+.cuenta-card h1 { color: var(--color-primary); font-size: 1.75rem; margin-bottom: 1.25rem; }
+.cuenta-sub { color: var(--color-text-muted); margin: -0.75rem 0 1.25rem; font-size: 0.95rem; }
+.cuenta-cabecera { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.cuenta-form { display: flex; flex-direction: column; gap: 1rem; }
+.cuenta-form label { display: flex; flex-direction: column; gap: 0.35rem; font-size: 0.9rem; font-weight: 500; color: var(--color-text); }
+.cuenta-form input:not([type='checkbox']), .cuenta-form select, .cuenta-form textarea {
+  font: inherit; padding: 0.7rem 0.85rem; border: 1px solid #cbd5e1; border-radius: 10px; background: #fff; color: var(--color-text);
+}
+.cuenta-form input:focus, .cuenta-form select:focus, .cuenta-form textarea:focus { outline: 2px solid var(--color-secondary); border-color: transparent; }
+.cuenta-fila { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.cuenta-check { flex-direction: row !important; align-items: flex-start; gap: 0.6rem !important; font-weight: 400 !important; color: var(--color-text-muted) !important; }
+.cuenta-check input { margin-top: 0.25rem; }
+.cuenta-error { color: var(--color-accent); font-size: 0.9rem; }
+.cuenta-aviso { color: #166534; font-size: 0.9rem; }
+.cuenta-proveedores { display: flex; align-items: center; gap: 0.6rem; margin-top: 1.25rem; flex-wrap: wrap; color: var(--color-text-muted); font-size: 0.9rem; }
+.cuenta-btn-sec { background: #fff; color: var(--color-primary); border: 1px solid #cbd5e1; padding: 0.5rem 1rem; cursor: pointer; border-radius: 999px; }
+.cuenta-btn-sec:hover { border-color: var(--color-secondary); }
+.cuenta-enlaces { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1.25rem; }
+.cuenta-enlaces button { background: none; border: 0; color: var(--color-secondary); cursor: pointer; text-align: left; font: inherit; font-size: 0.9rem; padding: 0; }
+.cuenta-enlaces button:hover { text-decoration: underline; }
+@media (max-width: 560px) { .cuenta-fila { grid-template-columns: 1fr; } .cuenta-card { padding: 1.75rem 1.25rem; } }
+.cuenta-demo { background: #fef9c3; color: #713f12; border-radius: 10px; padding: 0.6rem 0.85rem; font-size: 0.85rem; margin-bottom: 1rem; }
+.cuenta-form h2, .cuenta-bloque h2, .cuenta-card > h2 { font-size: 1.1rem; color: var(--color-primary); margin: 1.25rem 0 0.5rem; }
+.cuenta-bloque { border-top: 1px solid #e2e8f0; margin-top: 1.5rem; padding-top: 0.5rem; display: flex; flex-direction: column; gap: 0.6rem; }
+.cuenta-bloque p { margin: 0; }
+.cuenta-nota { background: #eff6ff; color: #1e3a8a; border-radius: 10px; padding: 0.6rem 0.85rem; font-size: 0.85rem; }
+.cuenta-tipo { border: 1px solid #cbd5e1; border-radius: 12px; padding: 0.75rem 1rem; display: flex; flex-direction: column; gap: 0.5rem; }
+.cuenta-tipo legend { font-size: 0.9rem; font-weight: 500; padding: 0 0.4rem; }
+.cuenta-identidad { display: flex; gap: 1.25rem; align-items: center; margin: 0.5rem 0 1rem; flex-wrap: wrap; }
+.cuenta-avatar { width: 88px; height: 88px; border-radius: 50%; overflow: hidden; background: var(--color-primary); color: #fff; display: flex; align-items: center; justify-content: center; font-family: var(--font-heading); font-size: 1.8rem; flex-shrink: 0; }
+.cuenta-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.cuenta-avatar-grande { width: 110px; height: 110px; font-size: 2.2rem; margin: 0 auto 1rem; }
+.cuenta-nombre { font-family: var(--font-heading); font-size: 1.3rem; font-weight: 700; color: var(--color-primary); }
+.cuenta-fila-botones { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 0.4rem; }
+.cuenta-subir { display: inline-block; }
+.cuenta-chip { display: inline-block; font-size: 0.8rem; font-weight: 600; padding: 0.15rem 0.6rem; border-radius: 999px; background: #e2e8f0; color: #334155; margin-left: 0.4rem; }
+.cuenta-chip-pending { background: #fef3c7; color: #92400e; }
+.cuenta-chip-approved { background: #dcfce7; color: #166534; }
+.cuenta-chip-rejected { background: #fee2e2; color: #991b1b; }
+.cuenta-enlace { color: var(--color-secondary); font-weight: 500; }
+.cuenta-enlace:hover { text-decoration: underline; }
+.cuenta-qr { align-items: flex-start; }
+.cuenta-peligro { border: 1px solid #fecaca; border-radius: 12px; padding: 0.75rem 1rem; display: flex; flex-direction: column; gap: 0.5rem; }
+.cuenta-peligro summary { cursor: pointer; color: var(--color-accent); font-weight: 500; }
+.cuenta-peligro input { font: inherit; padding: 0.5rem 0.7rem; border: 1px solid #cbd5e1; border-radius: 8px; margin: 0.5rem 0; }
+.cuenta-btn-peligro { background: var(--color-accent); color: #fff; border: 0; padding: 0.55rem 1.1rem; border-radius: 999px; cursor: pointer; }
+.cuenta-btn-peligro:disabled { opacity: 0.4; cursor: not-allowed; }
+.cuenta-banner { background: #f1f5f9; border-radius: 12px; padding: 0.9rem 1rem; margin-bottom: 1rem; font-size: 0.95rem; }
+.cuenta-banner-ok { background: #dcfce7; color: #14532d; }
+.cuenta-precio { font-size: 1.3rem; }
+.cuenta-precio s { color: var(--color-text-muted); margin-right: 0.4rem; font-size: 1rem; }
+.cuenta-tabla { width: 100%; border-collapse: collapse; font-size: 0.9rem; margin: 0.5rem 0 1rem; }
+.cuenta-tabla th, .cuenta-tabla td { text-align: left; padding: 0.5rem 0.6rem; border-bottom: 1px solid #e2e8f0; }
+.cuenta-tabla th { color: var(--color-primary); }
+.cuenta-fila-propia { background: #eff6ff; font-weight: 600; }
+.cuenta-lista { display: flex; flex-direction: column; gap: 0.75rem; }
+.cuenta-lista li { display: flex; justify-content: space-between; gap: 1rem; align-items: center; flex-wrap: wrap; padding: 0.6rem 0; border-bottom: 1px solid #e2e8f0; }
+.cuenta-tarjeta { text-align: center; }
+.cuenta-redes { display: flex; flex-direction: column; gap: 0.6rem; margin: 1rem 0; align-items: center; }
+.cuenta-texto h2 { margin-top: 1.5rem; }
+.cuenta-texto ul { list-style: disc; padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.3rem; }
+.cuenta-texto p { margin: 0.4rem 0; }
+.cuenta-check a { color: var(--color-secondary); text-decoration: underline; }
+
+/* ── Área de cuenta con menú lateral ── */
+.cuenta-pagina:has(.area) { padding-left: 1rem; padding-right: 1rem; }
+.area { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 1.5rem; max-width: 1080px; margin: 0 auto; align-items: start; }
+.area-menu { position: sticky; top: 6rem; background: var(--color-white); border-radius: 16px; box-shadow: var(--shadow-md); padding: 1.25rem 1rem; display: flex; flex-direction: column; gap: 0.75rem; }
+.area-usuario { font-size: 0.8rem; color: var(--color-text-muted); overflow-wrap: anywhere; padding: 0 0.5rem; }
+.area-menu ul { display: flex; flex-direction: column; gap: 0.15rem; }
+.area-menu a { display: block; padding: 0.6rem 0.75rem; border-radius: 10px; color: var(--color-text); font-weight: 500; font-size: 0.95rem; }
+.area-menu a:hover { background: #f1f5f9; }
+.area-menu a.activo { background: var(--color-primary); color: var(--color-white); }
+.area-salir { background: none; border: 0; text-align: left; padding: 0.6rem 0.75rem; color: var(--color-accent); font: inherit; font-size: 0.95rem; cursor: pointer; border-radius: 10px; }
+.area-salir:hover { background: #fef2f2; }
+.area-contenido { min-width: 0; }
+.area .cuenta-card { max-width: none; }
+.area .cuenta-card.cuenta-ancha { max-width: none; }
+@media (max-width: 800px) {
+  .area { grid-template-columns: 1fr; }
+  .area-menu { position: static; padding: 0.75rem; }
+  .area-menu ul { flex-direction: row; overflow-x: auto; gap: 0.4rem; padding-bottom: 0.25rem; }
+  .area-menu a { white-space: nowrap; }
+}
+
+/* ── Red de participantes ── */
+.red-filtros { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 0.75rem; margin: 1rem 0; align-items: center; }
+.red-filtros input, .red-filtros select { font: inherit; padding: 0.6rem 0.8rem; border: 1px solid #cbd5e1; border-radius: 10px; background: #fff; }
+.red-filtros .cuenta-check { grid-column: 1 / -1; }
+.red-lista { display: flex; flex-direction: column; gap: 0.75rem; }
+.red-tarjeta { display: flex; gap: 1rem; align-items: center; padding: 1rem; border: 1px solid #e2e8f0; border-radius: 14px; }
+.red-avatar { width: 56px; height: 56px; font-size: 1.1rem; }
+.red-datos { flex: 1; min-width: 0; }
+.red-datos p { margin: 0.1rem 0; }
+.red-enlaces { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 0.3rem; font-size: 0.85rem; }
+.llegar-sede { background: #eff6ff; border-radius: 12px; padding: 0.9rem 1.1rem; margin: 1rem 0; }
+.llegar-sede p { margin: 0.15rem 0; }
+@media (max-width: 700px) { .red-filtros { grid-template-columns: 1fr; } .red-tarjeta { flex-wrap: wrap; } }

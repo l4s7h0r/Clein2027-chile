@@ -1,6 +1,3 @@
-# Google Workspace / Gmail
-SMTP_HOST=smtp.gmail.com
-SMTP_PORT=465
-SMTP_USER=contacto@tuempresa.cl
-SMTP_PASS=changeme
-CONTACT_TO=contacto@tuempresa.cl
+# Cloudflare Email Routing (send_email binding)
+CONTACT_FROM=formulario@tudominio.cl
+CONTACT_TO=tu-correo@gmail.com

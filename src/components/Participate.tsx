@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import './Participate.css';
 import { GraduationCap, Building2, Users, ArrowRight } from 'lucide-react';
-
-type Tipo = 'sponsor' | 'asistente' | 'gestionador';
+import ParticiparModal, { type Tipo } from './ParticiparModal';
 
 const profiles: {
   tipo: Tipo;
@@ -22,7 +21,7 @@ const profiles: {
       'Packs por grupo y kit de difusión para tu centro de estudiantes',
       'Participación en el Comité Académico y en las competencias',
     ],
-    cta: 'Quiero sumar mi universidad',
+    cta: 'Ver beneficios y participar',
   },
   {
     tipo: 'sponsor',
@@ -34,7 +33,7 @@ const profiles: {
       'Visitas técnicas y desafío de innovación con retos reales',
       'Acceso directo a estudiantes y profesionales de 15+ países',
     ],
-    cta: 'Quiero patrocinar',
+    cta: 'Ver niveles y patrocinar',
   },
   {
     tipo: 'asistente',
@@ -46,14 +45,16 @@ const profiles: {
       'Concursos de ponencias, e-posters y olimpiadas',
       'Red de contactos con delegaciones de toda Latinoamérica',
     ],
-    cta: 'Quiero asistir',
+    cta: 'Ver precios y asistir',
   },
 ];
 
 const Participate: React.FC = () => {
-  const choose = (tipo: Tipo) => {
+  const [abierto, setAbierto] = useState<Tipo | null>(null);
+  const cerrar = useCallback(() => setAbierto(null), []);
+  const contacto = useCallback((tipo: Tipo) => {
     window.dispatchEvent(new CustomEvent('clein:tipo', { detail: tipo }));
-  };
+  }, []);
 
   return (
     <section id="participate" className="participate py-24">
@@ -75,13 +76,14 @@ const Participate: React.FC = () => {
                   <li key={perk}>{perk}</li>
                 ))}
               </ul>
-              <a href="#contact" className="btn btn-accent" onClick={() => choose(p.tipo)}>
+              <button type="button" className="btn btn-accent" onClick={() => setAbierto(p.tipo)}>
                 {p.cta} <ArrowRight size={18} />
-              </a>
+              </button>
             </article>
           ))}
         </div>
       </div>
+      {abierto && <ParticiparModal tipo={abierto} onClose={cerrar} onContacto={contacto} />}
     </section>
   );
 };

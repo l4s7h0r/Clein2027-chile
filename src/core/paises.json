@@ -1,0 +1,200 @@
+[
+ {
+  "code": "AG",
+  "name": "Antigua y Barbuda",
+  "flag": "🇦🇬",
+  "region": "Caribe"
+ },
+ {
+  "code": "AR",
+  "name": "Argentina",
+  "flag": "🇦🇷",
+  "region": "Sudamérica"
+ },
+ {
+  "code": "BS",
+  "name": "Bahamas",
+  "flag": "🇧🇸",
+  "region": "Caribe"
+ },
+ {
+  "code": "BB",
+  "name": "Barbados",
+  "flag": "🇧🇧",
+  "region": "Caribe"
+ },
+ {
+  "code": "BZ",
+  "name": "Belice",
+  "flag": "🇧🇿",
+  "region": "Centroamérica"
+ },
+ {
+  "code": "BO",
+  "name": "Bolivia",
+  "flag": "🇧🇴",
+  "region": "Sudamérica"
+ },
+ {
+  "code": "BR",
+  "name": "Brasil",
+  "flag": "🇧🇷",
+  "region": "Sudamérica"
+ },
+ {
+  "code": "CL",
+  "name": "Chile",
+  "flag": "🇨🇱",
+  "region": "Sudamérica"
+ },
+ {
+  "code": "CO",
+  "name": "Colombia",
+  "flag": "🇨🇴",
+  "region": "Sudamérica"
+ },
+ {
+  "code": "CR",
+  "name": "Costa Rica",
+  "flag": "🇨🇷",
+  "region": "Centroamérica"
+ },
+ {
+  "code": "CU",
+  "name": "Cuba",
+  "flag": "🇨🇺",
+  "region": "Caribe"
+ },
+ {
+  "code": "DM",
+  "name": "Dominica",
+  "flag": "🇩🇲",
+  "region": "Caribe"
+ },
+ {
+  "code": "EC",
+  "name": "Ecuador",
+  "flag": "🇪🇨",
+  "region": "Sudamérica"
+ },
+ {
+  "code": "SV",
+  "name": "El Salvador",
+  "flag": "🇸🇻",
+  "region": "Centroamérica"
+ },
+ {
+  "code": "GD",
+  "name": "Granada",
+  "flag": "🇬🇩",
+  "region": "Caribe"
+ },
+ {
+  "code": "GT",
+  "name": "Guatemala",
+  "flag": "🇬🇹",
+  "region": "Centroamérica"
+ },
+ {
+  "code": "GY",
+  "name": "Guyana",
+  "flag": "🇬🇾",
+  "region": "Sudamérica"
+ },
+ {
+  "code": "HT",
+  "name": "Haití",
+  "flag": "🇭🇹",
+  "region": "Caribe"
+ },
+ {
+  "code": "HN",
+  "name": "Honduras",
+  "flag": "🇭🇳",
+  "region": "Centroamérica"
+ },
+ {
+  "code": "JM",
+  "name": "Jamaica",
+  "flag": "🇯🇲",
+  "region": "Caribe"
+ },
+ {
+  "code": "MX",
+  "name": "México",
+  "flag": "🇲🇽",
+  "region": "Norteamérica latinoamericana"
+ },
+ {
+  "code": "NI",
+  "name": "Nicaragua",
+  "flag": "🇳🇮",
+  "region": "Centroamérica"
+ },
+ {
+  "code": "PA",
+  "name": "Panamá",
+  "flag": "🇵🇦",
+  "region": "Centroamérica"
+ },
+ {
+  "code": "PY",
+  "name": "Paraguay",
+  "flag": "🇵🇾",
+  "region": "Sudamérica"
+ },
+ {
+  "code": "PE",
+  "name": "Perú",
+  "flag": "🇵🇪",
+  "region": "Sudamérica"
+ },
+ {
+  "code": "DO",
+  "name": "República Dominicana",
+  "flag": "🇩🇴",
+  "region": "Caribe"
+ },
+ {
+  "code": "KN",
+  "name": "San Cristóbal y Nieves",
+  "flag": "🇰🇳",
+  "region": "Caribe"
+ },
+ {
+  "code": "VC",
+  "name": "San Vicente y las Granadinas",
+  "flag": "🇻🇨",
+  "region": "Caribe"
+ },
+ {
+  "code": "LC",
+  "name": "Santa Lucía",
+  "flag": "🇱🇨",
+  "region": "Caribe"
+ },
+ {
+  "code": "SR",
+  "name": "Surinam",
+  "flag": "🇸🇷",
+  "region": "Sudamérica"
+ },
+ {
+  "code": "TT",
+  "name": "Trinidad y Tobago",
+  "flag": "🇹🇹",
+  "region": "Caribe"
+ },
+ {
+  "code": "UY",
+  "name": "Uruguay",
+  "flag": "🇺🇾",
+  "region": "Sudamérica"
+ },
+ {
+  "code": "VE",
+  "name": "Venezuela",
+  "flag": "🇻🇪",
+  "region": "Sudamérica"
+ }
+]

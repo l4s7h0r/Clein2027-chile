@@ -1,0 +1,19 @@
+.pm-fondo { position: fixed; inset: 0; z-index: 1000; background: rgba(15, 23, 42, 0.6); display: flex; align-items: center; justify-content: center; padding: 1rem; }
+.pm-caja { position: relative; background: var(--color-white, #fff); border-radius: 16px; width: 100%; max-width: 760px; max-height: 90vh; overflow-y: auto; padding: 2rem; box-shadow: var(--shadow-lg); }
+.pm-caja h2 { margin: 0 2rem 0.5rem 0; font-size: 1.4rem; color: var(--color-primary); }
+.pm-caja h3 { margin: 1.25rem 0 0.5rem; font-size: 1.05rem; }
+.pm-cerrar { position: absolute; top: 0.9rem; right: 0.9rem; background: none; border: 0; cursor: pointer; padding: 0.35rem; border-radius: 8px; color: inherit; }
+.pm-cerrar:hover { background: #f1f5f9; }
+.pm-demo, .pm-nota { font-size: 0.85rem; color: var(--color-text-muted); margin: 0.75rem 0; }
+.pm-lista { list-style: disc; margin: 0.5rem 0 0; padding-left: 1.2rem; display: grid; gap: 0.3rem; }
+.pm-tabs { display: flex; gap: 0.5rem; margin: 1rem 0; }
+.pm-tab { border: 1px solid #cbd5e1; background: #fff; border-radius: 999px; padding: 0.4rem 1.1rem; cursor: pointer; font: inherit; }
+.pm-tab-on { background: var(--color-primary); color: #fff; border-color: var(--color-primary); }
+.pm-niveles { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem; }
+.pm-nivel { border: 1px solid #e2e8f0; border-radius: 12px; padding: 1rem; border-top-width: 4px; }
+.pm-nivel h3 { margin-top: 0; }
+.pm-oro { border-top-color: #d4a017; } .pm-platino { border-top-color: #94a3b8; } .pm-diamante { border-top-color: #38bdf8; }
+.pm-aporte { font-weight: 700; color: var(--color-primary); margin: 0.25rem 0 0.5rem; }
+.pm-acciones { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; }
+.pm-caja .cuenta-tabla { width: 100%; font-size: 0.9rem; }
+@media (max-width: 600px) { .pm-caja { padding: 1.25rem; } }

@@ -74,3 +74,90 @@
     display: none;
   }
 }
+
+/* Organizadora y coorganizadora */
+.uni-organizadoras {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+  max-width: 880px;
+  margin: 0 auto 3rem;
+}
+
+.uni-organizadora {
+  position: relative;
+  text-align: center;
+  padding: 2.5rem 1.5rem 1.75rem;
+  background: var(--color-white);
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  box-shadow: var(--shadow-md);
+}
+
+.uni-principal {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-lg);
+}
+
+.uni-rol {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--color-primary);
+  color: var(--color-white);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.3rem 1rem;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.uni-rol-co {
+  background: var(--color-secondary);
+}
+
+.uni-logo {
+  height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.uni-logo img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.uni-organizadora h3 {
+  font-size: 1.1rem;
+  color: var(--color-primary);
+}
+
+.uni-sigla {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 2rem;
+  color: var(--color-primary);
+}
+
+.supporter-card .uni-sigla {
+  font-size: 1.5rem;
+}
+
+.uni-subtitulo {
+  text-align: center;
+  color: var(--color-primary);
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 640px) {
+  .uni-organizadoras {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}

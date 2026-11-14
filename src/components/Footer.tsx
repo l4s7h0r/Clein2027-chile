@@ -12,13 +12,13 @@ const Footer: React.FC = () => {
           </div>
           
           <div className="footer-links">
-            <a href="#about">El Evento</a>
-            <a href="#pillars">Pilares</a>
-            <a href="#agenda">Agenda</a>
-            <a href="#visits">Visitas técnicas</a>
-            <a href="#supporters">Respaldo</a>
-            <a href="#faq">Preguntas</a>
-            <a href="#contact">Contacto</a>
+            <a href="/#about">El Evento</a>
+            <a href="/#pillars">Pilares</a>
+            <a href="/#agenda">Agenda</a>
+            <a href="/#visits">Visitas técnicas</a>
+            <a href="/#supporters">Universidades</a>
+            <a href="/#faq">Preguntas</a>
+            <a href="/#contact">Contacto</a>
           </div>
         </div>
         

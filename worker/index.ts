@@ -1,10 +1,11 @@
-import { WorkerMailer } from 'worker-mailer';
+import { EmailMessage } from 'cloudflare:email';
+import { createMimeMessage, Mailbox } from 'mimetext';
 
 interface Env {
-  SMTP_HOST: string;
-  SMTP_PORT: string;
-  SMTP_USER: string;
-  SMTP_PASS: string;
+  SEND_EMAIL: SendEmail;
+  /** Remitente: debe ser una dirección de un dominio con Email Routing activo. */
+  CONTACT_FROM: string;
+  /** Destinatario: debe estar verificado como destination address en Email Routing. */
   CONTACT_TO: string;
 }
 
@@ -55,37 +56,27 @@ async function handleContact(request: Request, env: Env): Promise<Response> {
   }
 
   try {
-    const port = Number(env.SMTP_PORT) || 587;
-    const secure = port === 465;
+    const msg = createMimeMessage();
+    msg.setSender({ name: 'CLEIN Santiago 2027 — Formulario', addr: env.CONTACT_FROM });
+    msg.setRecipient(env.CONTACT_TO);
+    const safeNombre = payload.nombre.replace(/[<>"\r\n]/g, '');
+    const safeEmail = payload.email.replace(/[<>\s]/g, '');
+    msg.setHeader('Reply-To', new Mailbox({ name: safeNombre, addr: safeEmail }));
+    msg.setSubject(`Nuevo interesado (${TIPO_LABEL[payload.tipo]}) — ${payload.nombre}`);
+    msg.addMessage({
+      contentType: 'text/plain',
+      data: [
+        `Nombre: ${payload.nombre}`,
+        `Email: ${payload.email}`,
+        `Tipo de participación: ${TIPO_LABEL[payload.tipo]}`,
+        `Empresa / Organización: ${payload.empresa || '—'}`,
+        '',
+        'Mensaje:',
+        payload.mensaje || '(sin mensaje)',
+      ].join('\n'),
+    });
 
-    await WorkerMailer.send(
-      {
-        host: env.SMTP_HOST,
-        port,
-        secure,
-        startTls: !secure,
-        credentials: {
-          username: env.SMTP_USER,
-          password: env.SMTP_PASS,
-        },
-        authType: 'plain',
-      },
-      {
-        from: { name: 'CLEIN Santiago 2027 — Formulario', email: env.SMTP_USER },
-        to: { email: env.CONTACT_TO },
-        reply: { name: payload.nombre, email: payload.email },
-        subject: `Nuevo interesado (${TIPO_LABEL[payload.tipo]}) — ${payload.nombre}`,
-        text: [
-          `Nombre: ${payload.nombre}`,
-          `Email: ${payload.email}`,
-          `Tipo de participación: ${TIPO_LABEL[payload.tipo]}`,
-          `Empresa / Organización: ${payload.empresa || '—'}`,
-          '',
-          'Mensaje:',
-          payload.mensaje || '(sin mensaje)',
-        ].join('\n'),
-      },
-    );
+    await env.SEND_EMAIL.send(new EmailMessage(env.CONTACT_FROM, env.CONTACT_TO, msg.asRaw()));
 
     return Response.json({ ok: true });
   } catch (err) {
