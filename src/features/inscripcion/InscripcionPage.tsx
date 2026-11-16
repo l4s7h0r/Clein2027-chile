@@ -4,7 +4,7 @@ import { useAuth } from '../../core/auth/AuthContext';
 import AvisoDemo from '../../core/ui/AvisoDemo';
 import { nombrePais } from '../../core/geo';
 import {
-  DESCUENTO_PREINSCRIPCION, PRECIOS_DE_EJEMPLO, PREINSCRIPCION_HASTA,
+  DESCUENTO_PREINSCRIPCION, MOSTRAR_PRECIOS, PAGOS_HABILITADOS, PRECIOS_DE_EJEMPLO, PREINSCRIPCION_HASTA,
   fechaLarga, formatoMoneda, precioDe,
 } from '../../core/tarifas';
 import TablaPrecios from '../../core/ui/TablaPrecios';
@@ -79,17 +79,33 @@ export default function InscripcionPage() {
           </p>
           <p>
             Categoría {CATEGORIAS[ins.categoria]} · {nombrePais(ins.pais)}.{' '}
-            {ins.descuento && <><s>{formatoMoneda(p.base, p.moneda)}</s>{' '}</>}
-            <strong>{formatoMoneda(p.final, p.moneda)}</strong>
-            {ins.descuento && ` (${pct}% de descuento de preinscripción)`}
+            {MOSTRAR_PRECIOS ? (
+              <>
+                {ins.descuento && <><s>{formatoMoneda(p.base, p.moneda)}</s>{' '}</>}
+                <strong>{formatoMoneda(p.final, p.moneda)}</strong>
+                {ins.descuento && ` (${pct}% de descuento de preinscripción)`}
+              </>
+            ) : (
+              ins.descuento ? `Con ${pct}% de descuento de preinscripción.` : 'Monto por confirmar.'
+            )}
           </p>
           {ins.estado === 'pagado' ? (
             <p className="cuenta-aviso">Pago registrado. ¡Nos vemos en Santiago!</p>
           ) : (
             <>
-              <p className="cuenta-nota">El pago real aún no está habilitado. Puedes probar el flujo con un pago de demostración, que no cobra nada.</p>
+              {!PAGOS_HABILITADOS && (
+                <p className="cuenta-nota">Los pagos aún no están habilitados: los montos y las plataformas de pago se informarán más adelante. Tu preinscripción queda registrada y mantiene su descuento.</p>
+              )}
               {error && <p className="cuenta-error" role="alert">{error}</p>}
-              {pagando ? (
+              {!PAGOS_HABILITADOS ? (
+                <div className="cuenta-fila-botones">
+                  <button className="btn btn-accent" type="button" disabled aria-disabled="true" title="Pagos próximamente">Pagar (próximamente)</button>
+                  {ins.estado === 'preinscrito' && (
+                    <button className="btn cuenta-btn-sec" type="button" onClick={() => accion(() => api.inscripcion.confirmar(user.id))}>Confirmar inscripción</button>
+                  )}
+                  <button className="btn cuenta-btn-sec" type="button" onClick={() => accion(() => api.inscripcion.cancelar(user.id))}>Cancelar</button>
+                </div>
+              ) : pagando ? (
                 <div className="cuenta-fila-botones">
                   {ins.pais === 'CL'
                     ? <button className="btn btn-accent" type="button" onClick={() => pagar('webpay')}>Pagar con Webpay (demostración)</button>
@@ -129,10 +145,16 @@ export default function InscripcionPage() {
     return (
       <div className="cuenta-bloque">
         {resumen}
-        <p className="cuenta-precio">
-          {abierta && <s>{formatoMoneda(p.base, p.moneda)}</s>} <strong>{formatoMoneda(p.final, p.moneda)}</strong>
-          {abierta && <span className="cuenta-chip cuenta-chip-approved">−{pct}% preinscripción</span>}
-        </p>
+        {MOSTRAR_PRECIOS ? (
+          <p className="cuenta-precio">
+            {abierta && <s>{formatoMoneda(p.base, p.moneda)}</s>} <strong>{formatoMoneda(p.final, p.moneda)}</strong>
+            {abierta && <span className="cuenta-chip cuenta-chip-approved">−{pct}% preinscripción</span>}
+          </p>
+        ) : (
+          <p className="cuenta-precio">
+            Monto por confirmar. {abierta && <span className="cuenta-chip cuenta-chip-approved">−{pct}% preinscripción</span>}
+          </p>
+        )}
         {error && <p className="cuenta-error" role="alert">{error}</p>}
         {abierta ? (
           <button className="btn btn-accent" type="button" onClick={() => accion(() => api.inscripcion.inscribir(user.id, 'preinscrito'))}>Preinscribirme con {pct}% de descuento</button>
@@ -147,14 +169,20 @@ export default function InscripcionPage() {
     <section className="cuenta-card cuenta-ancha">
       <h1>Inscripción</h1>
       <AvisoDemo />
-      {PRECIOS_DE_EJEMPLO && <p className="cuenta-demo">Precios y fechas de la propuesta presentada; el comité puede ajustarlos.</p>}
+      {MOSTRAR_PRECIOS && PRECIOS_DE_EJEMPLO && <p className="cuenta-demo">Precios y fechas de la propuesta presentada; el comité puede ajustarlos.</p>}
       {banner}
       {bloqueAccion()}
-      <h2>Tarifas presenciales</h2>
-      <p className="cuenta-sub">{NOTA_PRECIOS}</p>
-      <TablaPrecios modalidad="presencial" />
-      <h2>Tarifas online</h2>
-      <TablaPrecios modalidad="online" />
+      {MOSTRAR_PRECIOS ? (
+        <>
+          <h2>Tarifas presenciales</h2>
+          <p className="cuenta-sub">{NOTA_PRECIOS}</p>
+          <TablaPrecios modalidad="presencial" />
+          <h2>Tarifas online</h2>
+          <TablaPrecios modalidad="online" />
+        </>
+      ) : (
+        <p className="cuenta-nota">Las tarifas y los medios de pago se publicarán próximamente. Quienes se preinscriban tendrán un {pct}% de descuento.</p>
+      )}
     </section>
   );
 }

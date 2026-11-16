@@ -45,6 +45,7 @@ const Header: React.FC = () => {
             ))}
           </ul>
           <Link to="/como-llegar" className="nav-links-cuenta">Cómo llegar</Link>
+          <Link to="/turismo" className="nav-links-cuenta">Turismo</Link>
           <Link to="/inscripcion" className="nav-links-cuenta">Inscripción</Link>
           {user?.rol === 'admin' && <Link to="/admin" className="nav-links-cuenta">Admin</Link>}
           <Link to={cuentaTo} className="nav-links-cuenta">{cuentaLabel}</Link>
@@ -69,6 +70,7 @@ const Header: React.FC = () => {
             ))}
           </ul>
           <Link to="/como-llegar" className="btn" onClick={() => setOpen(false)}>Cómo llegar</Link>
+          <Link to="/turismo" className="btn" onClick={() => setOpen(false)}>Turismo</Link>
           <Link to="/inscripcion" className="btn" onClick={() => setOpen(false)}>Inscripción</Link>
           {user?.rol === 'admin' && <Link to="/admin" className="btn" onClick={() => setOpen(false)}>Admin</Link>}
           <Link to={cuentaTo} className="btn" onClick={() => setOpen(false)}>{cuentaLabel}</Link>

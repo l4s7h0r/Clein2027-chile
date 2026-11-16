@@ -55,7 +55,7 @@ export const NOTA_PRECIOS =
 export const NOTA_PAGO =
   'Pago en el sitio oficial con proveedor local de baja comisión (p. ej., Webpay, Flow o Khipu), transferencia bancaria para instituciones y empresas, y alternativa internacional para asistentes del exterior.';
 
-export interface NivelEmpresa { nivel: 'Oro' | 'Platino' | 'Diamante'; aporte: string; beneficios: string[] }
+export interface NivelEmpresa { nivel: 'Oro' | 'Platino' | 'Diamante' | 'Semilla' | 'Impulso' | 'Crecimiento'; aporte: string; beneficios: string[] }
 export const NIVELES_EMPRESA: NivelEmpresa[] = [
   { nivel: 'Oro', aporte: '$3.500.000 CLP', beneficios: [
     'Mención de marca', 'Logo en el sitio web y en el material del congreso',
@@ -67,6 +67,20 @@ export const NIVELES_EMPRESA: NivelEmpresa[] = [
     'Todos los beneficios del nivel Platino', 'Liderazgo de un desafío del Reto CLEIN',
     'Presencia destacada en la ceremonia de apertura o clausura' ] },
 ];
+/** Propuesta (por confirmar con el comité): apoyo para empresas pequeñas. */
+export const NIVELES_PYME: NivelEmpresa[] = [
+  { nivel: 'Semilla', aporte: '$500.000 CLP', beneficios: [
+    'Mención de marca en redes del congreso', 'Logo en la sección de pymes del sitio web' ] },
+  { nivel: 'Impulso', aporte: '$1.000.000 CLP', beneficios: [
+    'Todos los beneficios del nivel Semilla', 'Logo en el material digital del congreso',
+    'Espacio de difusión en Expo Innovation (por definir)' ] },
+  { nivel: 'Crecimiento', aporte: '$1.500.000 CLP', beneficios: [
+    'Todos los beneficios del nivel Impulso', 'Pitch corto o presentación de la empresa',
+    'Acceso a networking con estudiantes y profesionales' ] },
+];
+export const NOTA_PYME =
+  'Niveles de apoyo propuestos para empresas pequeñas; nombres, montos y beneficios están por confirmar con el comité.';
+
 export const NOTA_EMPRESAS =
   'Los beneficios detallados de cada nivel se formalizan en un dossier comercial. Puedes complementar tu aporte con auspicios en especie (por ejemplo merchandising y alimentación).';
 
