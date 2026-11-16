@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import './Participate.css';
-import { GraduationCap, Building2, Users, ArrowRight } from 'lucide-react';
+import { GraduationCap, Building2, Store, Users, ArrowRight } from 'lucide-react';
 import ParticiparModal, { type Tipo } from './ParticiparModal';
 
 const profiles: {
@@ -36,6 +36,18 @@ const profiles: {
     cta: 'Ver niveles y patrocinar',
   },
   {
+    tipo: 'pyme',
+    icon: <Store size={28} />,
+    title: 'Pymes',
+    lead: 'Apoyo con niveles accesibles para empresas pequeñas que quieren sumarse al congreso.',
+    perks: [
+      'Niveles desde $500.000 CLP (propuesta)',
+      'Presencia de marca en el sitio y material digital',
+      'Visibilidad ante estudiantes y profesionales de la región',
+    ],
+    cta: 'Ver niveles para pymes',
+  },
+  {
     tipo: 'asistente',
     icon: <Users size={28} />,
     title: 'Estudiantes y profesionales',
@@ -45,7 +57,7 @@ const profiles: {
       'Concursos de ponencias, e-posters y olimpiadas',
       'Red de contactos con delegaciones de toda Latinoamérica',
     ],
-    cta: 'Ver precios y asistir',
+    cta: 'Ver beneficios y preinscribirme',
   },
 ];
 
@@ -53,7 +65,7 @@ const Participate: React.FC = () => {
   const [abierto, setAbierto] = useState<Tipo | null>(null);
   const cerrar = useCallback(() => setAbierto(null), []);
   const contacto = useCallback((tipo: Tipo) => {
-    window.dispatchEvent(new CustomEvent('clein:tipo', { detail: tipo }));
+    window.dispatchEvent(new CustomEvent('clein:tipo', { detail: tipo === 'pyme' ? 'sponsor' : tipo }));
   }, []);
 
   return (

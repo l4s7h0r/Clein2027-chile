@@ -7,6 +7,9 @@ import type { Categoria } from './types';
  */
 export const PRECIOS_DE_EJEMPLO = true;
 export const DESCUENTO_PREINSCRIPCION = 0.1;
+/** Mientras no haya pasarela ni montos definidos: los pagos quedan bloqueados y no se muestran precios. */
+export const PAGOS_HABILITADOS = false;
+export const MOSTRAR_PRECIOS = false;
 export const PREINSCRIPCION_HASTA = new Date('2027-02-28T23:59:59-03:00');
 
 export type Moneda = 'USD';

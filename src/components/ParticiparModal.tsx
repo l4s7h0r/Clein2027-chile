@@ -3,16 +3,18 @@ import { X } from 'lucide-react';
 import { Link } from '../core/router';
 import TablaPrecios from '../core/ui/TablaPrecios';
 import {
-  INCLUYE_ONLINE, INCLUYE_PRESENCIAL, NIVELES_EMPRESA, NOTA_EMPRESAS, NOTA_PAGO, NOTA_PRECIOS, UNIVERSIDAD_PARTNER,
+  INCLUYE_ONLINE, INCLUYE_PRESENCIAL, NIVELES_EMPRESA, NIVELES_PYME, NOTA_EMPRESAS, NOTA_PYME, NOTA_PAGO, NOTA_PRECIOS, UNIVERSIDAD_PARTNER,
 } from '../core/precios';
+import { DESCUENTO_PREINSCRIPCION, MOSTRAR_PRECIOS } from '../core/tarifas';
 import '../core/ui/ui.css';
 import './ParticiparModal.css';
 
-export type Tipo = 'sponsor' | 'asistente' | 'gestionador';
+export type Tipo = 'sponsor' | 'asistente' | 'gestionador' | 'pyme';
 
 const TITULOS: Record<Tipo, string> = {
-  asistente: 'Precios y beneficios para participantes',
+  asistente: 'Beneficios y preinscripción',
   sponsor: 'Niveles de patrocinio para empresas',
+  pyme: 'Apoyo para pymes',
   gestionador: 'Participa como universidad partner',
 };
 
@@ -27,11 +29,17 @@ function Asistente() {
           </button>
         ))}
       </div>
-      <TablaPrecios modalidad={mod} />
-      <p className="pm-nota">{NOTA_PRECIOS}</p>
+      {MOSTRAR_PRECIOS ? (
+        <>
+          <TablaPrecios modalidad={mod} />
+          <p className="pm-nota">{NOTA_PRECIOS}</p>
+        </>
+      ) : (
+        <p className="pm-aporte">Tarifas por confirmar. Quienes se preinscriban tendrán un {Math.round(DESCUENTO_PREINSCRIPCION * 100)}% de descuento.</p>
+      )}
       <h3>La inscripción {mod === 'presencial' ? 'presencial' : 'online'} incluye</h3>
       <ul className="pm-lista">{(mod === 'presencial' ? INCLUYE_PRESENCIAL : INCLUYE_ONLINE).map((i) => <li key={i}>{i}</li>)}</ul>
-      <p className="pm-nota">{NOTA_PAGO}</p>
+      {MOSTRAR_PRECIOS && <p className="pm-nota">{NOTA_PAGO}</p>}
     </>
   );
 }
@@ -49,6 +57,23 @@ function Empresas() {
         ))}
       </div>
       <p className="pm-nota">{NOTA_EMPRESAS}</p>
+    </>
+  );
+}
+
+function Pymes() {
+  return (
+    <>
+      <div className="pm-niveles">
+        {NIVELES_PYME.map((n) => (
+          <article key={n.nivel} className="pm-nivel">
+            <h3>{n.nivel}</h3>
+            <p className="pm-aporte">{n.aporte}</p>
+            <ul className="pm-lista">{n.beneficios.map((b) => <li key={b}>{b}</li>)}</ul>
+          </article>
+        ))}
+      </div>
+      <p className="pm-nota">{NOTA_PYME}</p>
     </>
   );
 }
@@ -88,13 +113,14 @@ export default function ParticiparModal({ tipo, onClose, onContacto }: { tipo: T
         <p className="pm-demo">Información de la propuesta presentada; valores sujetos a confirmación del comité.</p>
         {tipo === 'asistente' && <Asistente />}
         {tipo === 'sponsor' && <Empresas />}
+        {tipo === 'pyme' && <Pymes />}
         {tipo === 'gestionador' && <Universidades />}
         <div className="pm-acciones">
           {tipo === 'asistente' ? (
-            <Link to="/inscripcion" className="btn btn-accent" onClick={onClose}>Crear cuenta e inscribirme</Link>
+            <Link to="/inscripcion" className="btn btn-accent" onClick={onClose}>Crear cuenta y preinscribirme</Link>
           ) : (
             <a href="#contact" className="btn btn-accent" onClick={() => { onContacto(tipo); onClose(); }}>
-              {tipo === 'sponsor' ? 'Quiero patrocinar' : 'Quiero sumar mi universidad'}
+              {tipo === 'sponsor' ? 'Quiero patrocinar' : tipo === 'pyme' ? 'Quiero apoyar como pyme' : 'Quiero sumar mi universidad'}
             </a>
           )}
           <button type="button" className="btn btn-outline" onClick={onClose}>Cerrar</button>
